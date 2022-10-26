@@ -64,9 +64,9 @@ if ((exit_code)); then
 fi
 
 sublog 'Elasticsearch is running'
-sublog "elastic password is ${ELASTIC_PASSWORD:-} ${ELASTIC_PASSWORD}"
-sublog "LOGSTASH_INTERNAL_PASSWORD is ${LOGSTASH_INTERNAL_PASSWORD:-} ${LOGSTASH_INTERNAL_PASSWORD}"
-sublog "KIBANA_SYSTEM_PASSWORD is ${KIBANA_SYSTEM_PASSWORD:-} ${KIBANA_SYSTEM_PASSWORD}"
+sublog "elastic password is ${ELASTIC_PASSWORD}"
+sublog "LOGSTASH_INTERNAL_PASSWORD is ${LOGSTASH_INTERNAL_PASSWORD}"
+sublog "KIBANA_SYSTEM_PASSWORD is ${KIBANA_SYSTEM_PASSWORD}"
 
 for role in "${!roles_files[@]}"; do
 	log "Role '$role'"
