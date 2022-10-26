@@ -32,7 +32,9 @@ roles_files=(
 
 
 echo "-------- $(date) --------"
-
+log "elastic password is ${ELASTIC_PASSWORD}"
+log "LOGSTASH_INTERNAL_PASSWORD is ${LOGSTASH_INTERNAL_PASSWORD}"
+log "KIBANA_SYSTEM_PASSWORD is ${KIBANA_SYSTEM_PASSWORD}"
 state_file="$(dirname "${BASH_SOURCE[0]}")/state/.done"
 if [[ -e "$state_file" ]]; then
 	log "State file exists at '${state_file}', skipping setup"
@@ -64,9 +66,6 @@ if ((exit_code)); then
 fi
 
 sublog 'Elasticsearch is running'
-sublog "elastic password is ${ELASTIC_PASSWORD}"
-sublog "LOGSTASH_INTERNAL_PASSWORD is ${LOGSTASH_INTERNAL_PASSWORD}"
-sublog "KIBANA_SYSTEM_PASSWORD is ${KIBANA_SYSTEM_PASSWORD}"
 
 for role in "${!roles_files[@]}"; do
 	log "Role '$role'"
