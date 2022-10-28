@@ -95,6 +95,8 @@ services:
         ELASTIC_VERSION: ${ELASTIC_VERSION}
     cap_add: ["CHOWN", "DAC_OVERRIDE", "SETGID", "SETUID"]
     cap_drop: ["ALL"]
+    volumes:
+      - ./apm/config/apm-server.yml:/usr/share/apm-server/config/apm-server.yml:ro,Z
     ports:
       - 8200:8200
     command: >
