@@ -25,6 +25,8 @@ xpack.fleet.packages:
     version: latest
   - name: elastic_agent
     version: latest
+  - name: apm
+    version: latest
 
 xpack.fleet.agentPolicies:
   - name: Fleet Server policy
@@ -43,3 +45,6 @@ xpack.fleet.agentPolicies:
       - name: elastic_agent-1
         package:
           name: elastic_agent
+      - name: apm-1
+        package:
+          name: apm

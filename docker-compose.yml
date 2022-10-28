@@ -88,33 +88,33 @@ services:
     depends_on:
       - elasticsearch
 
-  apm-server:
-    build:
-      context: apm/
-      args:
-        ELASTIC_VERSION: ${ELASTIC_VERSION}
-    cap_add: ["CHOWN", "DAC_OVERRIDE", "SETGID", "SETUID"]
-    cap_drop: ["ALL"]
-    volumes:
-      - ./apm/config/apm-server.yml:/usr/share/apm-server/config/apm-server.yml:ro,Z
-    ports:
-      - 8200:8200
-    command: >
-      apm-server -e
-        -E apm-server.rum.enabled=true
-        -E setup.kibana.host=kibana:5601
-        -E setup.template.settings.index.number_of_replicas=0
-        -E apm-server.kibana.enabled=true
-        -E apm-server.kibana.host=kibana:5601
-        -E output.elasticsearch.hosts=["elasticsearch:9200"]
-        -E output.elasticsearch.username=apm_system
-        -E output.elasticsearch.password=${APM_SYSTEM_PASSWORD}
-    healthcheck:
-      interval: 10s
-      retries: 12
-      test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://localhost:8200/
-    networks:
-      - elk
+#  apm-server:
+#    build:
+#      context: apm/
+#      args:
+#        ELASTIC_VERSION: ${ELASTIC_VERSION}
+#    cap_add: ["CHOWN", "DAC_OVERRIDE", "SETGID", "SETUID"]
+#    cap_drop: ["ALL"]
+#    volumes:
+#      - ./apm/config/apm-server.yml:/usr/share/apm-server/config/apm-server.yml:ro,Z
+#    ports:
+#      - 8200:8200
+#    command: >
+#      apm-server -e
+#        -E apm-server.rum.enabled=true
+#        -E setup.kibana.host=kibana:5601
+#        -E setup.template.settings.index.number_of_replicas=0
+#        -E apm-server.kibana.enabled=true
+#        -E apm-server.kibana.host=kibana:5601
+#        -E output.elasticsearch.hosts=["elasticsearch:9200"]
+#        -E output.elasticsearch.username=apm_system
+#        -E output.elasticsearch.password=${APM_SYSTEM_PASSWORD}
+#    healthcheck:
+#      interval: 10s
+#      retries: 12
+#      test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://localhost:8200/
+#    networks:
+#      - elk
 
 networks:
   elk:
