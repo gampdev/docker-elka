@@ -38,7 +38,7 @@ services:
       - "9200:9200"
       - "9300:9300"
     environment:
-      ES_JAVA_OPTS: -Xms512m -Xmx512m
+      ES_JAVA_OPTS: -Xms4g -Xmx4g  # Adjust heap size as needed
       # Bootstrap password.
       # Used to initialize the keystore during the initial startup of
       # Elasticsearch. Ignored on subsequent runs.
@@ -48,6 +48,11 @@ services:
       discovery.type: single-node
     networks:
       - elk
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 8G
 
   logstash:
     build:
@@ -63,12 +68,17 @@ services:
       - "50000:50000/udp"
       - "9600:9600"
     environment:
-      LS_JAVA_OPTS: -Xms256m -Xmx256m
+      LS_JAVA_OPTS: -Xms512m -Xmx512m
       LOGSTASH_INTERNAL_PASSWORD: ${LOGSTASH_INTERNAL_PASSWORD:-}
     networks:
       - elk
     depends_on:
       - elasticsearch
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 2G
 
   kibana:
     build:
@@ -87,6 +97,11 @@ services:
       - elk
     depends_on:
       - elasticsearch
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 2G
 
 #  apm-server:
 #    build:
